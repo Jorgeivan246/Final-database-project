@@ -1,6 +1,13 @@
 import mysql.connector
 
-#conexion = mysql.connector.connect(user="roor",password="1234",host="localhost",database="")
+class Database:
+    def _init_(self):
+        self.connection = pymysql.connect(
+            user="root", 
+            password="1234",database="proyecto_bases",
+            port = "3306")
 
-a="Que grosero"
-print(a)
+        self.cursor = self.connection.cursor()
+
+        print("Conexion establecida exitosamente")
+database = Database()
