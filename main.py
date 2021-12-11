@@ -6,7 +6,7 @@ def sub_menu():
     
     entidadAUsar=""
     
-    print("======== Elija la entidad que desea modificar ==========")
+    print("======== Elija la entidad que desea manipular ==========")
     print("1.- Recepcion ")
     print("2.- Envasado ")
     print("3.- Muestreo")

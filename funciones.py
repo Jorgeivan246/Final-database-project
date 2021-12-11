@@ -1,8 +1,8 @@
 def listarCursos(listaEntidades,entidadAUsar):
-    print("\EntidadAUsar+s: \n")
+    print("\ + {EntidadAUsar} + s: \n")
     contador = 1
     for entidad in listaEntidades:
-        datos = "{0}. idProducto: {1} | fecha: {2} ({3} peso_neto) {4} peso_bruto"
+        datos = "{0}. Código: {1} | Nombre: {2} ({3} créditos)"
         print(datos.format(contador, entidad[0], entidad[1], entidad[2]))
         contador = contador + 1
     print(" ")
