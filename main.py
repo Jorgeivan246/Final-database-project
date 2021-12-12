@@ -56,17 +56,17 @@ def ejecutarOpcion(opcion: int,entidadAUsar: string):
 
     if opcion == 1:
         try:
-            listaEntidades = dao.listar("ciudad")
+            listaEntidades = dao.listar("producto")
             if len(listaEntidades) > 0:
-                funciones.listarCursos(listaEntidades,entidadAUsar)
+                funciones.listarProductos(listaEntidades,entidadAUsar)
             else:
-                print("No se encontraron cursos...")
+                print("No se encontraron productos...")
         except:
             print("Ocurrió un error...")
     elif opcion == 2:
-        entidad = funciones.pedirDatosRegistro()
+        producto = funciones.pedirDatosRegistroProducto()
         try:
-            dao.registrar(entidad,entidadAUsar)
+            dao.registrarTipoLicencia(producto)
         except:
             print("Ocurrió un error...")
     elif opcion == 3:
@@ -84,15 +84,15 @@ def ejecutarOpcion(opcion: int,entidadAUsar: string):
             print("Ocurrió un error...")
     elif opcion == 4:
         try:
-            listaEntidades = dao.listarCursos()
+            listaEntidades = dao.listar("producto")
             if len(listaEntidades) > 0:
-                codigoEliminar = funciones.pedirDatosEliminacion(listaEntidades)
+                codigoEliminar = funciones.pedirDatosEliminacionProducto(listaEntidades)
                 if not(codigoEliminar == ""):
-                    dao.eliminar(codigoEliminar,entidadAUsar)
+                    dao.eliminarProducto(codigoEliminar)
                 else:
-                    print("Código de curso no encontrado...\n")
+                    print("Código de producto no encontrado...\n")
             else:
-                print("No se encontraron cursos...")
+                print("No se encontraron productos...")
         except:
             print("Ocurrió un error...")
     else:
