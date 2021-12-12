@@ -140,3 +140,36 @@ class DAO:
                 print("¡Envasado eliminado!\n")
             except Error as ex:
                 print("Error al intentar la conexión: {0}".format(ex))
+    
+    # Metodo para registrar un muestreo
+    def registrarMuestreo(self, muestreo):
+        if self.connection.is_connected():
+            cursor = self.connection.cursor()
+            sql = "INSERT INTO muestreo (codigo, fecha, unidades_aceptadas, Empleado_Persona_cedula, Empleado_Persona_email) VALUES ({0}, {1}, {2}, {3}, '{4}')"
+            cursor.execute(sql.format(muestreo[0], muestreo[1], muestreo[2], muestreo[3], muestreo[4]))
+            self.connection.commit()
+            print("¡Muestreo registrado!\n")
+
+    # Metodo para actualizar un muestreo
+    def actualizarMuestreo(self, muestreo):
+        if self.connection.is_connected():
+            try:
+                cursor = self.connection.cursor()
+                sql = "UPDATE muestreo SET fecha = {1},unidades_aceptadas = {2},Empleado_Persona_cedula ={3},Empleado_Persona_email ='{4}' WHERE codigo = {0}"
+                cursor.execute(sql.format(muestreo[0], muestreo[1], muestreo[2], muestreo[3], muestreo[4]))
+                self.connection.commit()
+                print("¡Muestreo actualizado!\n")
+            except Error as ex:
+                print("Error al intentar la conexión: {0}".format(ex))
+
+    # Metodo para eliminar un muestreo
+    def eliminarMuestreo(self, codigoMuestreoEliminar):
+        if self.connection.is_connected():
+            try:
+                cursor = self.connection.cursor()
+                sql = "DELETE FROM muestreo WHERE codigo = {0}"
+                cursor.execute(sql.format(codigoMuestreoEliminar))
+                self.connection.commit()
+                print("¡Muestreo eliminado!\n")
+            except Error as ex:
+                print("Error al intentar la conexión: {0}".format(ex))

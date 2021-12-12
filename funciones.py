@@ -171,3 +171,57 @@ def pedirDatosEliminarEnvasado(envasados):
         codigoEliminar = ""
 
     return codigoEliminar
+
+# Metodo para listar los datos del muestreo
+def listarMuestreos(listaEntidades):
+    print("\ + {Muestreo} + s: \n")
+    contador = 1
+    for entidad in listaEntidades:
+        datos = "{0}. Código: {1} | Fecha: {2}  Unidades aceptadas: {3} | Cédula empleado: {4} | Email empleado: {5}"
+        print(datos.format(contador, entidad[0], entidad[1], entidad[2],entidad[3], entidad[4]))
+        contador = contador + 1
+    print(" ")
+
+# Metodo para solicitar los datos para registrar un muestreo
+def pedirDatosRegistroMuestreo():
+    codigo = int(input("Ingrese el código del muestreo: "))
+    fecha = input("Ingrese la fecha del muestreo: ")
+    unidades_aceptadas = int(input("Ingrese las unidades aceptadas: "))
+    Empleado_Persona_cedula = int(input("Ingrese la cedula del empleado: "))
+    Empleado_Persona_email = input("Ingrese el email del empleado: ")
+
+    muestreo = (codigo,fecha,unidades_aceptadas,Empleado_Persona_cedula,Empleado_Persona_email)
+
+    return muestreo
+
+# Metodo para solicitar los datos para actualizar un muestreo
+def pedirDatosActualizacionMuestreo(muestreos):
+    codigoEditar = int(input("Ingrese el código del muestreo a editar: "))
+    existeCodigo = False
+    for cur in muestreos:
+        if cur[0] == codigoEditar:
+            existeCodigo = True
+            break
+
+    if existeCodigo:
+        fechaMuestreo = input("Ingrese la fecha a modificar: ")
+        unidadesAceptadas = input("Ingrese las unidades aceptadas a modificar: ")
+        cedulaEmpleado = input("Ingrese la cedula del empleado a modificar: ")
+        emailEmpleado = input("Ingrese el email del empleado a modificar: ")
+
+        muestreo = (codigoEditar, fechaMuestreo,unidadesAceptadas,cedulaEmpleado,emailEmpleado)
+    return muestreo
+
+# Metodo para solicitar los datos para eliminar un muestreo
+def pedirDatosEliminarMuestreo(muestreos):
+    existeCodigo = False
+    codigoEliminar = int(input("Ingrese el código del muestreo a eliminar: "))
+    for cur in muestreos:
+        if cur[0] == codigoEliminar:
+            existeCodigo = True
+            break
+
+    if not existeCodigo:
+        codigoEliminar = ""
+
+    return codigoEliminar

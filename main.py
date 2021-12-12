@@ -85,13 +85,24 @@ def opcionesEnvasado(opcion: int,entidadAUsar: string):
         case 4: dao.eliminarEnvasado(funciones.pedirDatosEliminarEnvasado(envasados)),
         case _: print("Opción no válida...")
 
+def opcionesMuestreo(opcion: int,entidadAUsar: string):
+    dao = DAO()
+    muestreos = dao.listar(entidadAUsar)
+         
+    match opcion:
+        case 1: funciones.listarMuestreos(muestreos),
+        case 2: dao.registrarMuestreo(funciones.pedirDatosRegistroMuestreo()),
+        case 3: dao.actualizarMuestreo(funciones.pedirDatosActualizacionMuestreo(muestreos)),
+        case 4: dao.eliminarMuestreo(funciones.pedirDatosEliminarMuestreo(muestreos)),
+        case _: print("Opción no válida...")
+
 def ejecutarOpcion(opcion: int,entidadAUsar: string):
     DAO()
 
     match entidadAUsar :
         case "Recepcion": opcionesRecpcion(opcion,entidadAUsar)
         case "Envasado": opcionesEnvasado(opcion,entidadAUsar)
-        case "Muestreo": funciones.opcionesMuestreo(opcion,entidadAUsar)
+        case "Muestreo": opcionesMuestreo(opcion,entidadAUsar)
         case "Producto": opcionesProducto(opcion,entidadAUsar)
         case _: print("Entidad no válida...")
 
