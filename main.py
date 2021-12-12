@@ -28,9 +28,9 @@ def sub_menu():
 
 def menu_principal(entidadAUsar: string):
     continuar = True
-    while(continuar):
+    while continuar:
         opcion_correcta = False
-        while(not opcion_correcta):
+        while not opcion_correcta:
             print("==================== MENÚ PRINCIPAL ====================")
             print("1.- Listar "+ entidadAUsar)
             print("2.- Registrar " + entidadAUsar)
@@ -51,52 +51,49 @@ def menu_principal(entidadAUsar: string):
                 ejecutarOpcion(opcion,entidadAUsar)
 
 
-def ejecutarOpcion(opcion: int,entidadAUsar: string):
+def opcionesRecpcion(opcion: int,entidadAUsar: string):
     dao = DAO()
+    recepciones = dao.listar(entidadAUsar)
+         
+    match opcion:
+        case 1: funciones.listarRecepciones(recepciones),
+        case 2: dao.registrarRecepcion(funciones.pedirDatosRegistroRecepcion()),
+        case 3: dao.actualizarRecepcion(funciones.pedirDatosActualizacionRecepcion(recepciones)),
+        case 4: dao.eliminarRecepcion(funciones.pedirDatosEliminarRecepcion(recepciones)),
+        case _: print("Opción no válida...")
 
-    if opcion == 1:
-        try:
-            listaEntidades = dao.listar("producto")
-            if len(listaEntidades) > 0:
-                funciones.listarProductos(listaEntidades,entidadAUsar)
-            else:
-                print("No se encontraron productos...")
-        except:
-            print("Ocurrió un error...")
-    elif opcion == 2:
-        producto = funciones.pedirDatosRegistroProducto()
-        try:
-            dao.registrarTipoLicencia(producto)
-        except:
-            print("Ocurrió un error...")
-    elif opcion == 3:
-        try:
-            listaEntidades = dao.listar()
-            if len(listaEntidades) > 0:
-                entidad = funciones.pedirDatosActualizacion(listaEntidades)
-                if entidad:
-                    dao.actualizar(entidad,entidadAUsar)
-                else:
-                    print("Código de curso a actualizar no encontrado...\n")
-            else:
-                print("No se encontraron cursos...")
-        except:
-            print("Ocurrió un error...")
-    elif opcion == 4:
-        try:
-            listaEntidades = dao.listar("producto")
-            if len(listaEntidades) > 0:
-                codigoEliminar = funciones.pedirDatosEliminacionProducto(listaEntidades)
-                if not(codigoEliminar == ""):
-                    dao.eliminarProducto(codigoEliminar)
-                else:
-                    print("Código de producto no encontrado...\n")
-            else:
-                print("No se encontraron productos...")
-        except:
-            print("Ocurrió un error...")
-    else:
-        print("Opción no válida...")
+        
+def opcionesProducto(opcion: int,entidadAUsar: string):
+    dao = DAO()
+    productos = dao.listar(entidadAUsar)
+         
+    match opcion:
+        case 1: funciones.listarProductos(productos),
+        case 2: dao.registrarProducto(funciones.pedirDatosRegistroProducto()),
+        case 3: dao.actualizarProducto(funciones.pedirDatosActualizacionProducto(productos)),
+        case 4: dao.eliminarProducto(funciones.pedirDatosEliminarProducto(productos)),
+        case _: print("Opción no válida...")
+
+def opcionesEnvasado(opcion: int,entidadAUsar: string):
+    dao = DAO()
+    envasados = dao.listar(entidadAUsar)
+         
+    match opcion:
+        case 1: funciones.listarEnvasados(envasados),
+        case 2: dao.registrarEnvasado(funciones.pedirDatosRegistroEnvasado()),
+        case 3: dao.actualizarEnvasado(funciones.pedirDatosActualizacionEnvasado(envasados)),
+        case 4: dao.eliminarEnvasado(funciones.pedirDatosEliminarEnvasado(envasados)),
+        case _: print("Opción no válida...")
+
+def ejecutarOpcion(opcion: int,entidadAUsar: string):
+    DAO()
+
+    match entidadAUsar :
+        case "Recepcion": opcionesRecpcion(opcion,entidadAUsar)
+        case "Envasado": opcionesEnvasado(opcion,entidadAUsar)
+        case "Muestreo": funciones.opcionesMuestreo(opcion,entidadAUsar)
+        case "Producto": opcionesProducto(opcion,entidadAUsar)
+        case _: print("Entidad no válida...")
 
 
-sub_menu();
+sub_menu()
