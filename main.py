@@ -216,4 +216,4 @@ def generarTablaPDF():
     envasados = dao.listar("Envasado")
     funciones.generarTablaPDF(envasados)
 
-sub_menu()
+login()

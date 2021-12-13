@@ -246,7 +246,7 @@ class DAO:
         if self.connection.is_connected():
             
             cursor = self.connection.cursor()
-            sql = "SELECT SUM(peso_neto) as total from Producto p NATURAL JOIN Recepcion r GROUP BY r.codigo order by r.fecha DESC limit 4"
+            sql = "SELECT SUM(peso_neto) as total from Producto p NATURAL JOIN Recepcion r GROUP BY r.codigo limit 4"
             cursor.execute(sql)
             registros=cursor.fetchall()
         return registros
