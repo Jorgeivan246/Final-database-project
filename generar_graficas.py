@@ -52,8 +52,6 @@ class Grafica():
         
         
     def graficoLineas(self):
-    
-
    
         Year = [1920,1930,1940,1950,1960,1970,1980,1990,2000,2010]
         Unemployment_Rate = [9.8,12,8,7.2,6.9,7,6.5,6.2,5.5,6.3]
@@ -90,11 +88,6 @@ class Grafica():
 
         pdf.set_font('times', '', 12)
 
-
-
-
-        pdf.output('reporte'+  str(self.count)+'.pdf')
+        pdf.output('reporte'+  nombreImagen+'.pdf')
         
-        self.count=int(self.count)
-        
-        self.count=self.count+1
+    
