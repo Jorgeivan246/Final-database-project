@@ -1,5 +1,6 @@
 import mysql.connector
 from mysql.connector import Error
+from generar_graficas import Grafica 
 
 
 # Se hace la conexion a la base de datos
@@ -186,3 +187,115 @@ class DAO:
                     return True
             
             return False
+
+    # Metodo para reprotar los empleados que ganan más de 800000
+    def reporteEmpleados800(self):
+        if self.connection.is_connected():
+            cursor = self.connection.cursor()
+            sql = "SELECT persona_cedula, salario FROM empleado e INNER JOIN cargo c  WHERE c.salario > 800000"
+            cursor.execute(sql)
+            empleados = cursor.fetchall()
+            return empleados
+
+    # Metodo para listar el promedio del peso neto de los productos por el tipo de producto
+    def promedioPesoNetoPorTipo(self):
+        if self.connection.is_connected():
+            cursor = self.connection.cursor()
+            sql = "SELECT Tipo_Producto_idTipo, ROUND (AVG(peso_neto),2) AS promedio FROM Producto GROUP BY(Tipo_Producto_idTipo)"
+            cursor.execute(sql)
+            promedioPesoNetoPorTipo = cursor.fetchall()
+            return promedioPesoNetoPorTipo
+
+    # Metodo para calcular la nomina de los gerentes
+    def calcularNominasGerentes(self):
+        if self.connection.is_connected():
+            cursor = self.connection.cursor()
+            sql = "SELECT SUM(salario) AS nomina FROM cargo c INNER JOIN empleado e ON c.codigo = e.cargo_codigo  WHERE c.descripcion = 'gerente' "
+            cursor.execute(sql)
+            nominaGerentes = cursor.fetchall()
+            return nominaGerentes
+
+    def consulta3(self):
+        if self.connection.is_connected():
+            cursor = self.connection.cursor()
+            sql = "SELECT * FROM Producto WHERE peso_bruto BETWEEN 28 AND 32 AND fecha > DATE('2021-05-01')"
+            cursor.execute(sql)
+            resultados = cursor.fetchall()
+            return resultados
+
+    def consulta4(self):
+        if self.connection.is_connected():
+            cursor = self.connection.cursor()
+            sql = "SELECT descripcion, SUM(peso_bruto) AS peso_total FROM tipo_producto  tp INNER JOIN producto p ON tp.idTipo = p.Tipo_Producto_idTipo GROUP BY (descripcion)"
+            cursor.execute(sql)
+            resultados = cursor.fetchall()
+            return resultados
+
+    def consultaPlantilla(self,sql):
+        if self.connection.is_connected():
+            cursor = self.connection.cursor()
+            cursor.execute(sql)
+            resultados = cursor.fetchall()
+            return resultados
+
+    def reporteo1(self):
+        
+        
+        #Mostrar en un gráfica de barras el peso neto total de las 4 recepciones más recientes GRAFICO
+
+        if self.connection.is_connected():
+            
+            cursor = self.connection.cursor()
+            sql = "SELECT SUM(peso_neto) as total from Producto p NATURAL JOIN Recepcion r GROUP BY r.codigo order by r.fecha DESC limit 4"
+            cursor.execute(sql)
+            registros=cursor.fetchall()
+        return registros
+    
+    def definirReportePdf1(self):
+        
+       
+        registros=self.reporteo1()
+
+        datos=[1,2,3,4,5]
+        
+        datos.extend(registros)
+            
+        grafica = Grafica()
+
+        nombreImagen="graficoBarrasRecepcion"
+
+
+        grafica.generarEstadisticaBarrasRecepcion(datos)
+        grafica.generarPDf(nombreImagen)
+
+
+    def reporte2(self):
+        
+        #El peso bruto total de los productos agrupados por el nombre del tipo producto
+        
+        if self.connection.is_connected():
+            
+            cursor = self.connection.cursor()
+            sql = "SELECT SUM(peso_bruto) AS peso_total FROM tipo_producto  tp INNER JOIN producto p ON tp.idTipo = p.Tipo_Producto_idTipo GROUP BY (descripcion)"
+            cursor.execute(sql)
+            registros=cursor.fetchall()
+          
+        return registros
+    
+    def definirRegistroPdf2(self):
+        
+        registros=self.reporte2()
+
+        datos=[1,2,3,4]
+
+      
+
+        datos.extend(registros)
+            
+        grafica = Grafica()
+
+        nombreImagen="graficoPastelEnvasado"
+
+
+        grafica.generarEstadisticaBarrasPastel(datos)
+        grafica.generarPDf(nombreImagen)

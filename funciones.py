@@ -1,3 +1,8 @@
+from reportlab.platypus import SimpleDocTemplate
+from reportlab.lib.pagesizes import letter
+from reportlab.platypus import Table
+from reportlab.platypus.doctemplate import _evalMeasurement
+
 # Metodo para listar las recepciones
 def listarRecepciones(listaEntidades):
     print("\Recepcion: \n")
@@ -234,3 +239,82 @@ def pedirDatosLogin():
     login = (correo,password)
 
     return login
+
+def generarPDF(datos,fileName):
+    pdf = SimpleDocTemplate(fileName, pagesize = letter)
+    table = Table(datos)
+    elements = []
+    elements.append(table)
+    pdf.build(elements)
+
+# Metodo para generar el pdf del reporte de la consulta 1
+def generarReporte1(salarios):
+    datos = [["Cedula empleado","Salario"]]
+    for salario in salarios:
+        datos.append([salario[0],salario[1]])
+
+    fileName = "Reporte1.pdf"
+    generarPDF(datos,fileName)
+
+def generarReporte2(productos):
+    datos = [["Código producto","Peso neto promedio"]]
+    for producto in productos:
+        datos.append([producto[0],producto[1]])
+    
+    fileName = "Reporte2.pdf"
+
+    generarPDF(datos,fileName)
+
+def generarReporte3(resultados):
+    datos = [["ID producto","Fecha","Peso neto","Peso bruto","Codigo de recepcion","Fecha de recepcion","Codigo tipo"]]
+    for resultado in resultados:
+        datos.append([resultado[0],resultado[1],resultado[2],resultado[3],resultado[4],resultado[5],resultado[6]])
+
+    fileName = "Reporte3.pdf"
+
+    generarPDF(datos,fileName)
+
+def generarReporte4(resultados):
+    datos = [["Nombre tipo producto","Cantidad"]]
+    for resultado in resultados:
+        datos.append([resultado[0],resultado[1]])
+
+    fileName = "Reporte4.pdf"    
+
+    generarPDF(datos,fileName)
+
+def generarReporte5(resultados):
+    datos = [["Nomina de los gerentes"]] 
+    for resultado in resultados:
+        datos.append([resultado[0]])
+
+    fileName = "Reporte5.pdf"
+
+    generarPDF(datos,fileName)
+
+def generarReporte6(resultados):
+    datos = [["Placa del vehiculo","Fecha model del vehiculo"]]
+    for resultado in resultados:
+        datos.append([resultado[0],resultado[1]])
+
+    fileName = "Reporte6.pdf"
+
+    generarPDF(datos,fileName)
+
+def generarReporte8(resultados):
+    daros = [["Cedula empleado"]]
+    for resultado in resultados:
+        daros.append([resultado[0]])
+
+    fileName = "Reporte8.pdf"
+
+    generarPDF(daros,fileName)
+
+def generarReporte9(resultados):
+    datos = [["Cedula conductor"]]
+    for resultado in resultados:
+        datos.append([resultado[0]])
+
+    fileName = "Reporte9.pdf"
+
+    generarPDF(datos,fileName)
