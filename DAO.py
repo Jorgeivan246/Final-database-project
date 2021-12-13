@@ -173,3 +173,16 @@ class DAO:
                 print("¡Muestreo eliminado!\n")
             except Error as ex:
                 print("Error al intentar la conexión: {0}".format(ex))
+
+    # Metodo para validar el login
+    def validarLogin(self, login):
+        if self.connection.is_connected():
+            cursor = self.connection.cursor()
+            sql = "SELECT * FROM Empleado WHERE Cargo_codigo IN (1,2,5)"
+            cursor.execute(sql)
+            empleado = cursor.fetchall()
+            for row in empleado:
+                if login[0] == row[1] and login[1] == row[0]:
+                    return True
+            
+            return False

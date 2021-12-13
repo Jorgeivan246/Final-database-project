@@ -225,3 +225,12 @@ def pedirDatosEliminarMuestreo(muestreos):
         codigoEliminar = ""
 
     return codigoEliminar
+
+# Metodo para solicitar los datos de login
+def pedirDatosLogin():
+    correo = input("Ingrese el correo: ")
+    password = int(input("Ingrese la contraseña: "))
+
+    login = (correo,password)
+
+    return login

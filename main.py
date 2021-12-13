@@ -1,9 +1,29 @@
 from DAO import DAO
 import funciones
 import string
+import os
+
+def clearConsole():
+    command = 'clear'
+    if os.name in ('nt', 'dos'):  # If Machine is running on Windows, use cls
+        command = 'cls'
+    os.system(command)
+
+def login():
+    clearConsole()
+    dao = DAO()
+    print("==================== LOGIN ====================")
+    login = funciones.pedirDatosLogin()
+    
+    if dao.validarLogin(login):
+        print("Bienvenido")
+        sub_menu()
+    else:
+        print("Email o contraseña incorrectos")
+        login()
 
 def sub_menu():
-    
+    clearConsole()
     entidadAUsar=""
     
     print("======== Elija la entidad que desea manipular ==========")
@@ -27,6 +47,7 @@ def sub_menu():
                     
 
 def menu_principal(entidadAUsar: string):
+    clearConsole()
     continuar = True
     while continuar:
         opcion_correcta = False
@@ -52,6 +73,7 @@ def menu_principal(entidadAUsar: string):
 
 
 def opcionesRecpcion(opcion: int,entidadAUsar: string):
+    clearConsole()
     dao = DAO()
     recepciones = dao.listar(entidadAUsar)
          
@@ -64,6 +86,7 @@ def opcionesRecpcion(opcion: int,entidadAUsar: string):
 
         
 def opcionesProducto(opcion: int,entidadAUsar: string):
+    clearConsole()
     dao = DAO()
     productos = dao.listar(entidadAUsar)
          
@@ -75,6 +98,7 @@ def opcionesProducto(opcion: int,entidadAUsar: string):
         case _: print("Opción no válida...")
 
 def opcionesEnvasado(opcion: int,entidadAUsar: string):
+    clearConsole()
     dao = DAO()
     envasados = dao.listar(entidadAUsar)
          
@@ -86,6 +110,7 @@ def opcionesEnvasado(opcion: int,entidadAUsar: string):
         case _: print("Opción no válida...")
 
 def opcionesMuestreo(opcion: int,entidadAUsar: string):
+    clearConsole()
     dao = DAO()
     muestreos = dao.listar(entidadAUsar)
          
@@ -97,6 +122,7 @@ def opcionesMuestreo(opcion: int,entidadAUsar: string):
         case _: print("Opción no válida...")
 
 def ejecutarOpcion(opcion: int,entidadAUsar: string):
+    clearConsole()
     DAO()
 
     match entidadAUsar :
@@ -106,5 +132,4 @@ def ejecutarOpcion(opcion: int,entidadAUsar: string):
         case "Producto": opcionesProducto(opcion,entidadAUsar)
         case _: print("Entidad no válida...")
 
-
-sub_menu()
+login()
